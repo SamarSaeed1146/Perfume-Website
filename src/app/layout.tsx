@@ -1,6 +1,10 @@
+// src/app/layout.tsx
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { AuthProvider } from "./AuthProvider";
+import { ThemeProvider } from "@/components/theme-provider"; // Your client-side wrapper
+import { Suspense } from "react"; // Import Suspense
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,12 +27,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+    <AuthProvider>
+      <html lang="en" suppressHydrationWarning>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          {/* Use Suspense to defer rendering of the ThemeProvider until the client */}
+          <Suspense fallback={<div className="flex items-center justify-center min-h-screen">Loading...</div>}>
+            {" "}
+            {/* fallback can be an empty div or null */}
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}
+            </ThemeProvider>
+          </Suspense>
+        </body>
+      </html>
+    </AuthProvider>
   );
 }
