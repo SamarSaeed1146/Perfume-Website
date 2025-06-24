@@ -5,6 +5,8 @@ import "./globals.css";
 import { AuthProvider } from "./AuthProvider";
 import { ThemeProvider } from "@/components/theme-provider"; // Your client-side wrapper
 import { Suspense } from "react"; // Import Suspense
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,7 +35,13 @@ export default function RootLayout({
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
           {/* Use Suspense to defer rendering of the ThemeProvider until the client */}
-          <Suspense fallback={<div className="flex items-center justify-center min-h-screen">Loading...</div>}>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center min-h-screen">
+                Loading...
+              </div>
+            }
+          >
             {" "}
             {/* fallback can be an empty div or null */}
             <ThemeProvider
@@ -42,7 +50,9 @@ export default function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
+              <Header />
               {children}
+              <Footer />
             </ThemeProvider>
           </Suspense>
         </body>
