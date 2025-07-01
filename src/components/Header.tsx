@@ -7,12 +7,14 @@ import {
   LogoutLink,
 } from "@kinde-oss/kinde-auth-nextjs/components";
 import { useKindeAuth } from "@kinde-oss/kinde-auth-nextjs";
-import { ModeToggle } from "./Mode-Define"; // Assuming this is your theme toggle
+import { ModeToggle } from "./Mode-Define";
 import { useState } from "react";
-import Image from "next/image"; // Ensure Image is imported from "next/image"
+import Image from "next/image";
+import { useCart } from "@/components/CartProvider"; // Import the useCart hook
 
 export function Header() {
   const { isAuthenticated, user } = useKindeAuth();
+  const { cartItemCount } = useCart(); // Get cartItemCount from our context
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
@@ -20,12 +22,14 @@ export function Header() {
       <nav className="flex items-center justify-between max-w-screen-xl mx-auto">
         {/* Brand/Logo */}
         <div className="flex items-center">
-          <span className="text-4xl font-serif italic text-orange-400 mr-2 transform hover:scale-110 transition-transform duration-300">
-            S
-          </span>
-          <h1 className="text-3xl font-extralight tracking-widest uppercase text-white">
-            ScentEcho
-          </h1>
+          <Link href="/" className="flex items-center group">
+            <span className="text-4xl font-serif italic text-orange-400 mr-2 transform group-hover:scale-110 transition-transform duration-300">
+              S
+            </span>
+            <h1 className="text-3xl font-extralight tracking-widest uppercase text-white">
+              ScentEcho
+            </h1>
+          </Link>
         </div>
 
         {/* Desktop Navigation Links */}
@@ -57,10 +61,46 @@ export function Header() {
               <span className="absolute left-0 bottom-0 w-full h-[2px] bg-orange-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
             </Link>
           </li>
+          {/* New "All Scents" link */}
+          <li>
+            <Link
+              href="/scents"
+              className="relative text-gray-300 hover:text-white transition-colors duration-300 ease-in-out group"
+            >
+              All Scents
+              <span className="absolute left-0 bottom-0 w-full h-[2px] bg-orange-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+            </Link>
+          </li>
         </ul>
 
-        {/* Authentication Buttons / User Profile & Logout */}
+        {/* Authentication Buttons / User Profile & Logout & Cart Icon */}
         <div className="hidden md:flex items-center space-x-4">
+          {/* Cart Icon */}
+          <Link
+            href="/cart"
+            className="relative flex items-center text-gray-300 hover:text-orange-400 transition-colors duration-300"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-7 h-7"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M2.25 3h1.386c.51 0 .955.343 1.023.832l2.514 14.126c.07.49.498.868.995.868H18.75c.497 0 .92-.378.995-.868L21.75 6H7.258a.75.75 0 0 1-.723-.51L5.348 3.52C5.234 2.879 4.69 2.25 3.971 2.25H2.25M7.5 14.25a.75.75 0 0 0 0 1.5h.007a.75.75 0 0 0-.007-1.5Zm7.5 0a.75.75 0 0 0 0 1.5h.007a.75.75 0 0 0-.007-1.5Zm1.689-11.233-.84-.525M9.75 3h.008v.008H9.75V3Zm4.25 0h.008v.008H14V3Z"
+              />
+            </svg>
+            {cartItemCount > 0 && (
+              <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center animate-pop">
+                {cartItemCount}
+              </span>
+            )}
+          </Link>
+
           {!isAuthenticated ? (
             <>
               <LoginLink className="text-gray-300 hover:text-white px-5 py-2 border border-gray-600 hover:border-orange-400 rounded-full text-sm font-semibold transition-all duration-300 ease-in-out hover:bg-orange-400 hover:bg-opacity-10">
@@ -104,6 +144,31 @@ export function Header() {
 
         {/* Mobile Menu Button (Hamburger) - visible only on small screens */}
         <div className="md:hidden flex items-center space-x-4">
+          {/* Mobile Cart Icon */}
+          <Link
+            href="/cart"
+            className="relative flex items-center text-gray-100 hover:text-orange-400 transition-colors duration-300"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-7 h-7"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M2.25 3h1.386c.51 0 .955.343 1.023.832l2.514 14.126c.07.49.498.868.995.868H18.75c.497 0 .92-.378.995-.868L21.75 6H7.258a.75.75 0 0 1-.723-.51L5.348 3.52C5.234 2.879 4.69 2.25 3.971 2.25H2.25M7.5 14.25a.75.75 0 0 0 0 1.5h.007a.75.75 0 0 0-.007-1.5Zm7.5 0a.75.75 0 0 0 0 1.5h.007a.75.75 0 0 0-.007-1.5Zm1.689-11.233-.84-.525M9.75 3h.008v.008H9.75V3Zm4.25 0h.008v.008H14V3Z"
+              />
+            </svg>
+            {cartItemCount > 0 && (
+              <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center animate-pop">
+                {cartItemCount}
+              </span>
+            )}
+          </Link>
           <ModeToggle />
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -174,6 +239,40 @@ export function Header() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Contact
+              </Link>
+            </li>
+            {/* New "All Scents" link in mobile menu */}
+            <li>
+              <Link
+                href="/scents"
+                className="text-gray-300 hover:text-orange-400 transition-colors duration-200 text-3xl font-semibold"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                All Scents
+              </Link>
+            </li>
+            {/* Mobile Cart Link */}
+            <li>
+              <Link
+                href="/cart"
+                className="text-gray-300 hover:text-orange-400 transition-colors duration-200 text-3xl font-semibold flex items-center justify-center gap-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Cart ({cartItemCount})
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-8 h-8"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M2.25 3h1.386c.51 0 .955.343 1.023.832l2.514 14.126c.07.49.498.868.995.868H18.75c.497 0 .92-.378.995-.868L21.75 6H7.258a.75.75 0 0 1-.723-.51L5.348 3.52C5.234 2.879 4.69 2.25 3.971 2.25H2.25M7.5 14.25a.75.75 0 0 0 0 1.5h.007a.75.75 0 0 0-.007-1.5Zm7.5 0a.75.75 0 0 0 0 1.5h.007a.75.75 0 0 0-.007-1.5Zm1.689-11.233-.84-.525M9.75 3h.008v.008H9.75V3Zm4.25 0h.008v.008H14V3Z"
+                  />
+                </svg>
               </Link>
             </li>
           </ul>
