@@ -12,6 +12,8 @@ import { useState } from "react";
 import Image from "next/image";
 import { useCart } from "@/components/CartProvider"; // Import the useCart hook
 
+import { MdShoppingCart } from "react-icons/md";
+
 export function Header() {
   const { isAuthenticated, user } = useKindeAuth();
   const { cartItemCount } = useCart(); // Get cartItemCount from our context
@@ -75,25 +77,14 @@ export function Header() {
 
         {/* Authentication Buttons / User Profile & Logout & Cart Icon */}
         <div className="hidden md:flex items-center space-x-4">
-          {/* Cart Icon */}
+          {/* Cart Icon - Replaced with react-icons component */}
           <Link
             href="/cart"
             className="relative flex items-center text-gray-300 hover:text-orange-400 transition-colors duration-300"
+            aria-label={`Shopping Cart with ${cartItemCount} items`} // Added for accessibility
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-7 h-7"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M2.25 3h1.386c.51 0 .955.343 1.023.832l2.514 14.126c.07.49.498.868.995.868H18.75c.497 0 .92-.378.995-.868L21.75 6H7.258a.75.75 0 0 1-.723-.51L5.348 3.52C5.234 2.879 4.69 2.25 3.971 2.25H2.25M7.5 14.25a.75.75 0 0 0 0 1.5h.007a.75.75 0 0 0-.007-1.5Zm7.5 0a.75.75 0 0 0 0 1.5h.007a.75.75 0 0 0-.007-1.5Zm1.689-11.233-.84-.525M9.75 3h.008v.008H9.75V3Zm4.25 0h.008v.008H14V3Z"
-              />
-            </svg>
+            <MdShoppingCart className="w-7 h-7" />{" "}
+            {/* Using the imported icon */}
             {cartItemCount > 0 && (
               <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center animate-pop">
                 {cartItemCount}
@@ -144,25 +135,14 @@ export function Header() {
 
         {/* Mobile Menu Button (Hamburger) - visible only on small screens */}
         <div className="md:hidden flex items-center space-x-4">
-          {/* Mobile Cart Icon */}
+          {/* Mobile Cart Icon - Replaced with react-icons component */}
           <Link
             href="/cart"
             className="relative flex items-center text-gray-100 hover:text-orange-400 transition-colors duration-300"
+            aria-label={`Shopping Cart with ${cartItemCount} items`} // Added for accessibility
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-7 h-7"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M2.25 3h1.386c.51 0 .955.343 1.023.832l2.514 14.126c.07.49.498.868.995.868H18.75c.497 0 .92-.378.995-.868L21.75 6H7.258a.75.75 0 0 1-.723-.51L5.348 3.52C5.234 2.879 4.69 2.25 3.971 2.25H2.25M7.5 14.25a.75.75 0 0 0 0 1.5h.007a.75.75 0 0 0-.007-1.5Zm7.5 0a.75.75 0 0 0 0 1.5h.007a.75.75 0 0 0-.007-1.5Zm1.689-11.233-.84-.525M9.75 3h.008v.008H9.75V3Zm4.25 0h.008v.008H14V3Z"
-              />
-            </svg>
+            <MdShoppingCart className="w-7 h-7" />{" "}
+            {/* Using the imported icon */}
             {cartItemCount > 0 && (
               <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center animate-pop">
                 {cartItemCount}
@@ -251,7 +231,7 @@ export function Header() {
                 All Scents
               </Link>
             </li>
-            {/* Mobile Cart Link */}
+            {/* Mobile Cart Link - Replaced with react-icons component */}
             <li>
               <Link
                 href="/cart"
@@ -259,20 +239,8 @@ export function Header() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Cart ({cartItemCount})
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-8 h-8"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M2.25 3h1.386c.51 0 .955.343 1.023.832l2.514 14.126c.07.49.498.868.995.868H18.75c.497 0 .92-.378.995-.868L21.75 6H7.258a.75.75 0 0 1-.723-.51L5.348 3.52C5.234 2.879 4.69 2.25 3.971 2.25H2.25M7.5 14.25a.75.75 0 0 0 0 1.5h.007a.75.75 0 0 0-.007-1.5Zm7.5 0a.75.75 0 0 0 0 1.5h.007a.75.75 0 0 0-.007-1.5Zm1.689-11.233-.84-.525M9.75 3h.008v.008H9.75V3Zm4.25 0h.008v.008H14V3Z"
-                  />
-                </svg>
+                <MdShoppingCart className="w-8 h-8" />{" "}
+                {/* Using the imported icon */}
               </Link>
             </li>
           </ul>

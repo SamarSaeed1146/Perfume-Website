@@ -37,7 +37,7 @@ const categories: FragranceCategory[] = [
     name: "New Arrivals",
     description:
       "Discover the latest and most exciting additions to our collection.",
-    href: "/new-arrivals",
+    href: "/category/new-arrivals",
     imageUrl: "/images/new-arrivals.jpg", // Example image path
   },
 ];

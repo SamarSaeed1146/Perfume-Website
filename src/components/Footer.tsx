@@ -103,7 +103,7 @@ export function Footer() {
             </li>
             <li>
               <Link
-                href="/new-arrivals"
+                href="/category/new-arrivals"
                 className="text-gray-300 hover:text-orange-400 transition-colors duration-300 ease-in-out text-base"
               >
                 New Arrivals
