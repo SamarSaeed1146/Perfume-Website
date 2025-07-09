@@ -1,4 +1,4 @@
-"use client";
+"use client"; // This page is explicitly a Client Component as it uses useState and useEffect.
 
 import { useEffect, useState } from "react";
 import ProductCard from "@/components/ProductCard"; // Adjust path if necessary
@@ -54,8 +54,7 @@ export default function Scents() {
             </div>
           )}
         </section>
-      </div>
+      </div>    
     </div>
   );
 }
-

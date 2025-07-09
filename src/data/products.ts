@@ -8,7 +8,6 @@ export type Product = {
   price: number;
   description: string;
   imageUrl: string;
-  // Changed category to be an array of ProductCategory
   category: ProductCategory[];
 };
 
